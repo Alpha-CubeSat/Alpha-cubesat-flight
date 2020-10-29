@@ -40,12 +40,13 @@
 #define DIAGNOSTICS false // Change this to see diagnostics
 #include <TimerOne.h>
 #include <StarshotACS0.h>
-IridiumSBD modem(IridiumSerial);
 #include <Adafruit_LSM9DS1.h>
 #include <Adafruit_Sensor.h>
 #include <SD.h>
 #include <Adafruit_VC0706.h>
 //////////////// RockBlock Setup Data ////////////////
+
+IridiumSBD modem(IridiumSerial);
 
 //uint16_t bytesleft; //declared, needs to be integrated into hybrid //added a 2 since it is used by a library //declared at pic downlink
 uint16_t counter = 0; //starts as 0, no image has been segmented for downlink yet // needs to be integrated to hybrid
