@@ -1,12 +1,11 @@
 #include "Camera.h"
 
 Camera::Camera(HardwareSerial *ser){
-  hwSerial = ser;
-  adaCam = Adafruit_VC0706(ser);
+  adaCam = Adafruit_VC0706(*ser);
 }
 
 String Camera::setup(){
-  //254 is BUILTIN_SDCARD?
+  //254 is BUILTIN_SDCARD
   if (!SD.begin(254)) {
     return "Card failed, or not present";
   }

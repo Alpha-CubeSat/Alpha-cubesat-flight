@@ -10,15 +10,11 @@ class Camera{
     Camera(HardwareSerial *ser);
     String setup();
     String takePhoto();
-    HardwareSerial getHwSerial(){
-        return *hwSerial;
-    }
     Adafruit_VC0706 getAdaCam(){
         return adaCam;
     }
 
     private:
-    HardwareSerial *hwSerial;
     Adafruit_VC0706 adaCam;
 };
 
