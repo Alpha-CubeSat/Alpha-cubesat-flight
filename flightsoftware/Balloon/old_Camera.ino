@@ -1,4 +1,4 @@
-void SDInit() {
+/*void SDInit() {
   Serial.println("Starting SD");
   MSH.SDActive = true;
   if (!SD.begin(BUILTIN_SDCARD))
@@ -316,4 +316,4 @@ int getNumPhotos() {
   Serial.print("Total Count: ");
   Serial.println(innercounter);
   return innercounter;
-}
+}*/
