@@ -1,20 +1,21 @@
 #include "GPS.h"
 
-GPS::GPS(HardwareSerial *ser){
-  this->serial = ser;
+GPS::GPS(HardwareSerial *hwSer, usb_serial_class *swSer){
+  this->hardwareSerial = hwSer;
+  this->softwareSerial = swSer;
 }
 
-String GPS::setup(){
-  getSerial().begin(9600);
-  return "GPS is setup";
+void GPS::setup(){
+  getHardwareSerial().begin(9600);
+  getSoftwareSerial().println("GPS is setup");
 }
 
 uint32_t GPS::getAltitude(){
   uint32_t latestAltitude = 0;
-  if (getSerial().available() > 0){
-    uint8_t GPSchar = getSerial().read();
-    getTinyGPS().encode(GPSchar);
-    latestAltitude = getTinyGPS().altitude.meters();
+  if (getHardwareSerial().available() > 0){
+    uint8_t GPSchar = getHardwareSerial().read();
+    gps.encode(GPSchar);
+    latestAltitude = gps.altitude.meters();
   }
   return latestAltitude;
 }

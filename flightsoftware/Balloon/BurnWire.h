@@ -2,17 +2,19 @@
 #define BurnWire_H
 
 #include <Arduino.h> 
+#include <usb_serial.h>
 
 class BurnWire{
     public:
-    BurnWire(int pin);
-    String trigger();
-    int getPin(){
-        return pin;
+    BurnWire(int pin, usb_serial_class *swSerial);
+    void trigger();
+    usb_serial_class getSoftwareSerial(){
+        return *softwareSerial;
     }
-
+    
     private:
-    int pin;  
+    int pin; 
+    usb_serial_class *softwareSerial; 
 };
 
 #endif

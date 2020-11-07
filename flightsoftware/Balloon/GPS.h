@@ -4,21 +4,23 @@
 #include <HardwareSerial.h>
 #include <Wire.h>
 #include <TinyGPS++.h>    
+#include <usb_serial.h>
 
 class GPS{
     public:
-    GPS(HardwareSerial *ser);
-    String setup();
+    GPS(HardwareSerial *hwSer, usb_serial_class *swSer);
+    void setup();
     uint32_t getAltitude();
-    HardwareSerial getSerial(){
-        return *serial;
+    HardwareSerial getHardwareSerial(){
+        return *hardwareSerial;
     }
-    TinyGPSPlus getTinyGPS(){
-        return gps;
+    usb_serial_class getSoftwareSerial(){
+        return *softwareSerial;
     }
 
     private:
-    HardwareSerial *serial;
+    HardwareSerial *hardwareSerial;
+    usb_serial_class *softwareSerial;
     TinyGPSPlus gps;  
 };
 

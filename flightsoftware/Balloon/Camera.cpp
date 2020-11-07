@@ -1,24 +1,28 @@
 #include "Camera.h"
 
-Camera::Camera(HardwareSerial *ser){
-  adaCam = Adafruit_VC0706(*ser);
+Camera::Camera(HardwareSerial *hwSerial, usb_serial_class *swSerial){
+  this->hardwareSerial = hwSerial;
+  this->softwareSerial = swSerial;
+  Adafruit_VC0706 adaCamera = Adafruit_VC0706(hwSerial);
+  adaCamera.begin();
+  //this->adaCam = &adaCamera;
 }
 
-String Camera::setup(){
+void Camera::setup(){
   //254 is BUILTIN_SDCARD
   if (!SD.begin(254)) {
-    return "Card failed, or not present";
+    getSoftwareSerial().println("SD card not found");
   }
-  if (!getAdaCam().begin()) {
-    return "Camera not found";
+  if(!getAdaCam().begin()){
+    getSoftwareSerial().println("Camera not found");
   }
-  return("Hello");
-  adaCam.setImageSize(VC0706_640x480);  
-  return "Camera setup";
+  getAdaCam().setImageSize(VC0706_640x480);  
+  getSoftwareSerial().println("Camera is setup");
 }
 
-String Camera::takePhoto(){
-  if (!getAdaCam().takePicture()){ 
+
+void Camera::takePhoto(){
+  /*if (!adaCam.takePicture()){ 
     return("Failed to snap!");
   }
   else{
@@ -55,5 +59,8 @@ String Camera::takePhoto(){
     }
     imgFile.close();
     return("Image saved");
-  }
+  }*/
 }
+
+
+
