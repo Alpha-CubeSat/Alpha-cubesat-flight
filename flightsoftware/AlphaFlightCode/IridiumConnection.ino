@@ -92,6 +92,16 @@ public:
         return *this;
     }
 
+    IridiumConnection& writeBytes(unsigned char bytes[], int length)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            writeByte(bytes[i]);
+        }
+
+        return *this;
+    }
+
     unsigned long timeSinceLastTransmission()
     {
         return millis() - lastTransmission;
@@ -104,8 +114,6 @@ public:
 
     Command tryTransmission()
     {
-        int errorCode = 0;
-        int signalQuality = 0;
         size_t receivedLength = 0;
         Command result;
 

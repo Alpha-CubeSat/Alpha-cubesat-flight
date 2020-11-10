@@ -1,6 +1,6 @@
 //comment
 void defaultFunctions() {
-  //faultCheck();
+  faultCheck();
   //if (newData) {
   recvWithEndMarker(); //makes new data true if there is
   if (isInputValid() && (receivedChars != "")) {
@@ -55,7 +55,6 @@ void loop() {
   Serial.println("Calling commCon (Modified)");
   //delay(1000);
   commCon(); //has DLConf inside of it, which calls the downlink.uplink functions //obeys variables set by modeCon
-  //faultCheck(); //at end of first loop
   //  while (picoperation<1){
   //  picoperation = 1;
   //  TakePicture();}

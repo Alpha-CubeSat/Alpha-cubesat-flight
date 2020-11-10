@@ -44,9 +44,16 @@
 #include <Adafruit_Sensor.h>
 #include <SD.h>
 #include <Adafruit_VC0706.h>
+#include "IridiumConnection.ino"
 //////////////// RockBlock Setup Data ////////////////
 
 IridiumSBD modem(IridiumSerial);
+IridiumConnection iridiumConnection(modem);
+
+void test()
+{
+  iridiumConnection.
+}
 
 //uint16_t bytesleft; //declared, needs to be integrated into hybrid //added a 2 since it is used by a library //declared at pic downlink
 uint16_t counter = 0; //starts as 0, no image has been segmented for downlink yet // needs to be integrated to hybrid

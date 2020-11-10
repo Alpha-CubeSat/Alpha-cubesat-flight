@@ -2,6 +2,8 @@
 /////////////////////Initialization/////////////////////
 ////////////////////////////////////////////////////////
 
+#include "IridiumConnection.ino"
+
 void RBInit() {
   //initalize rockblock
   IridiumSerial.begin(19200);
@@ -43,36 +45,66 @@ void commCon() { //does not need overwrite mod
   //    }
   //    Serial.print("openSpot = ");
   //    Serial.println(openSpot);
-  Serial.print("If statement for Downlink:");
+  Serial.print("If statement for SendReceive:");
   MSH.downlinkPeriod = 5000;
   Serial.println(MSH.downlinkPeriod);
   //    Serial.print("millis()");
   //    Serial.println(millis());
+  
+  // Josh's attempt at new version
+  if(iridiumConnection.timeSinceLastTransmission() > MSH.downlinkPeriod){
+    
+    fillSendBuffer()
+    iridiumConnection.tryTransmission();
+  }
+// make new variable SendRecievePeriod? or transmissionPeriod?
+
+  // OLD VERSION
+  /*
   if ((lastSend + MSH.downlinkPeriod) <= (millis()) && !DLConf) { // check if we're due for a downlink, also dont run when we're still waiting for DL confirmation
     Serial.println("Starting Downlink");
     Downlink();
   }
-  openSpot = 0; //resets openspot anyway, how should we change this?
-  //    Serial.print("openSpot = ");
-  //    Serial.println(openSpot);
-  Serial.print("If statemente for uplink:");
-  MSH.uplinkPeriod = 5000;
-  Serial.println(MSH.uplinkPeriod);
-  //    Serial.print("millis()");
-  //    Serial.println(millis());
-
+*/
+/* MIGHT NOT BE DOING THIS ANYMORE
   if (DLConf) {
     DownlinkCheck();
   }
-
-  if (lastReceive + MSH.uplinkPeriod <= millis()) {
-    Uplink();
-    //sbd sendrecieve text
-  }
-  // if there are any incoming messages. if so call read function
-  // or maybe don't? every time we downlink we'll know if there are
-  // incoming messages
+  */
 }
+
+void fillSendBuffer() {
+  if (sendFault == true) { //condition for fault report
+      // fill fault report
+      Serial.println("Sending fault report");
+      // nothing, fault report set in outside function
+  }
+  if (sendFault != true && ULC == true) { //condition for requested data
+     // fill with requested data
+     Serial.println("ULC == true, sending an uplink data request!");
+     // nothing, filled within popCommands
+  }
+  if (MSH.lastSR > MSH.SRFreq) { //condition for special downlink
+    // fill with special report
+    Serial.println("Special Report Called");
+    SpecialDownLink();
+    MSH.lastSR = 0;
+  }
+  else {
+    // fill with routine report
+    Serial.println("Routine Report Called");
+    routineDownlinkData()
+  }
+  for (int g = 0; g < openSpot; g++) {
+    Serial.print(txbuffer[g]); Serial.print(", "); //for testing purposes, take this out and uncomment next line for real action
+  }
+
+  //now write to the fillSendBuffer
+  for (int g = 0; g < openSpot; g++) {
+    iridiumConnection.writeByte(txbuffer[g])
+  }
+}
+      
 
 //the following functions are called inide downlink, so we always get the freshest data, and if we can't trasnmit, we do it again.
 
@@ -93,6 +125,11 @@ void routineDownlinkData() { //Fills buffer with Routine Report //updating the v
   // do we want to include DoorButton, lightSense and CurrentZero?
 
   if (nextMode != 2) { //not safehold
+    
+    
+    
+    
+    
     uint8_t tempholder[17] = {21, MSH.MAG, MSH.GYR, MSH.ACC, MSH.MagAve[0], MSH.MagAve[1], MSH.MagAve[2], MSH.GyroAve[0], MSH.GyroAve[1], MSH.GyroAve[2], MSH.AccelAve[0], MSH.AccelAve[1], MSH.AccelAve[2], MSH.ImuTemp, MSH.Temp, MSH.SolarCurrent, MSH.Battery};
     //uint8_t tempholder[14] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
     for (int i = 0; i < 17; i++) {
@@ -192,7 +229,7 @@ void Downlink() { // outgoing data must be placed in txbuffer before downlink is
 
 
     if (DLConf == false && signalQuality > 0) {// is there still an outgoing message awaiting confirmation //make sure this is no a waste of time, rockblock may be able to transmit with signal quality zero!
-      sendFault = false;
+      sendFault = false; // would prevent fault transmissions from sending
       if (sendFault != true && ULC != true) {
         if (MSH.lastSR > MSH.SRFreq /*|| booleanforspecialreportrequest*/) { // int can change based on how often you'd like special data.
           //openSpot = 0;//rewriting txbuffer
