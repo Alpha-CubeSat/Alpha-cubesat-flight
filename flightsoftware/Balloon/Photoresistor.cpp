@@ -1,4 +1,4 @@
-/*#include "Photoresistor.h"
+#include "Photoresistor.h"
 
 Photoresistor::Photoresistor(int p){
   this->pin= p;
@@ -12,4 +12,4 @@ bool Photoresistor::doorOpen(){
   else{
     return false;
   }
-}*/
+}

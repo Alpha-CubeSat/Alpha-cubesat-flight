@@ -8,21 +8,17 @@
 
 class Camera{
     public:
-    Camera(HardwareSerial *ser, usb_serial_class *swSer);
+    Camera(HardwareSerial *hwSerial, usb_serial_class *swSerial);
     void setup();
     void takePhoto();
     usb_serial_class getSoftwareSerial(){
         return *softwareSerial;
-    }
-    HardwareSerial getHardwareSerial(){
-        return *hardwareSerial;
     }
     Adafruit_VC0706 getAdaCam(){
         return *adaCam;
     }
     
     private:
-    HardwareSerial *hardwareSerial;
     usb_serial_class *softwareSerial;
     Adafruit_VC0706 *adaCam;    
 };

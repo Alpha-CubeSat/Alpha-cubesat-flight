@@ -1,12 +1,18 @@
 #include "BurnWire.h"
 
 BurnWire::BurnWire(int p, usb_serial_class *swSer){
-  this->pin= p;
-  this->softwareSerial = swSer;
+  pin= p;
+  softwareSerial = swSer;
 }
 
-void BurnWire::trigger(){
+void BurnWire::on(){
   pinMode(pin, OUTPUT);
   digitalWrite(pin, HIGH);
-  getSoftwareSerial().println("Triggered burn wire");
+  getSoftwareSerial().println("Turned on burn wire");
+}
+
+void BurnWire::off(){
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, LOW);
+  getSoftwareSerial().println("Turned off wire");
 }

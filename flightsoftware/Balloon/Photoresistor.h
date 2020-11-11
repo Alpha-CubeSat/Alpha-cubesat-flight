@@ -1,7 +1,7 @@
-/*#ifndef Photoresistor_H
+#ifndef Photoresistor_H
 #define Photoresistor_H
 
-#include <Wire.h>
+#include <Arduino.h>
 
 class Photoresistor{
     public:
@@ -15,4 +15,4 @@ class Photoresistor{
     int pin;  
 };
 
-#endif*/
+#endif

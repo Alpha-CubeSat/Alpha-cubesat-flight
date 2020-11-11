@@ -1,8 +1,8 @@
 #include "GPS.h"
 
 GPS::GPS(HardwareSerial *hwSer, usb_serial_class *swSer){
-  this->hardwareSerial = hwSer;
-  this->softwareSerial = swSer;
+  hardwareSerial = hwSer;
+  softwareSerial = swSer;
 }
 
 void GPS::setup(){

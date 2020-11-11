@@ -7,7 +7,8 @@
 class BurnWire{
     public:
     BurnWire(int pin, usb_serial_class *swSerial);
-    void trigger();
+    void on();
+    void off();
     usb_serial_class getSoftwareSerial(){
         return *softwareSerial;
     }
