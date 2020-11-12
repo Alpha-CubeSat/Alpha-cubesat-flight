@@ -1,30 +1,25 @@
 #include "Camera.h"
 
-Camera::Camera(HardwareSerial *hwSerial, usb_serial_class *swSerial){
+Camera::Camera(HardwareSerial *hwSerial, usb_serial_class *swSerial): adaCam(hwSerial){
   softwareSerial = swSerial;
-  Adafruit_VC0706 adaCamera = Adafruit_VC0706(hwSerial);
-  adaCam = &adaCamera;
-  getAdaCam().begin();
-  getAdaCam().setImageSize(VC0706_640x480);  
-  getAdaCam().takePicture();
-  getSoftwareSerial().println("Hello");
-  
 }
 
 void Camera::setup(){
   //254 is BUILTIN_SDCARD
   (SD.begin(254)) ? getSoftwareSerial().println("SD card found") : getSoftwareSerial().println("SD card not found");
-  getAdaCam().begin() ? getSoftwareSerial().println("Camera found") : getSoftwareSerial().println("Camera not found");
-  getAdaCam().setImageSize(VC0706_640x480);  
+  adaCam.begin() ? getSoftwareSerial().println("Camera found") : getSoftwareSerial().println("Camera not found");
+  adaCam.setImageSize(VC0706_640x480);  
   getSoftwareSerial().println("Camera is setup");
 }
 
 
 void Camera::takePhoto(){
-  /*if (!adaCam.takePicture()){ 
-    return("Failed to snap!");
+  if (!adaCam.takePicture()){ 
+    getSoftwareSerial().println("Photo not taken");
   }
   else{
+    getSoftwareSerial().println("Photo taken");
+
     // Create an image with the name IMAGExx.JPG
     char filename[13];
     strcpy(filename, "IMAGE00.JPG");
@@ -57,8 +52,8 @@ void Camera::takePhoto(){
       jpglen -= bytesToRead;
     }
     imgFile.close();
-    return("Image saved");
-  }*/
+    getSoftwareSerial().println("Photo saved");
+  }
 }
 
 

@@ -14,13 +14,10 @@ class Camera{
     usb_serial_class getSoftwareSerial(){
         return *softwareSerial;
     }
-    Adafruit_VC0706 getAdaCam(){
-        return *adaCam;
-    }
     
     private:
     usb_serial_class *softwareSerial;
-    Adafruit_VC0706 *adaCam;    
+    Adafruit_VC0706 adaCam;    
 };
 
 #endif
