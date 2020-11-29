@@ -9,7 +9,6 @@ BurnWire burnWire = BurnWire(35, &Serial);
 Photoresistor photoresistor = Photoresistor(17);
 
 void setup(){
-  //cam.setup();
   gps.setup();
   
 }
