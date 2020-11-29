@@ -10,6 +10,7 @@ Photoresistor photoresistor = Photoresistor(17);
 
 void setup(){
   gps.setup();
+  cam.setup();
 }
 
 void loop(){
