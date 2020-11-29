@@ -10,7 +10,6 @@ Photoresistor photoresistor = Photoresistor(17);
 
 void setup(){
   gps.setup();
-  
 }
 
 void loop(){
@@ -21,10 +20,5 @@ void loop(){
   else{
     Serial.println("OPEN");
     burnWire.off();
-
-  }
-  
-  //burnWire.trigger(); 
-  //Serial.print(gps.getAltitude());
-  
+  } 
 }
