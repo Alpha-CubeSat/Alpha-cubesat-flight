@@ -14,6 +14,7 @@ namespace Constants{
     constexpr int ZPWMPIN {0};
     constexpr int ZOUT1 {0};
     constexpr int ZOUT2 {0};
+    constexpr float MODEL_COMPENSATION {0};
 };
 
 #endif
