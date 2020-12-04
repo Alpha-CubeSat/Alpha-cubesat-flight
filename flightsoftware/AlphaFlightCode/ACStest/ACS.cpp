@@ -1,27 +1,27 @@
 #include "ACS.h"
 
-ACS::ACS() : pinset(0), detuble(true), imu(IMU()) {
+ACS::ACS() : detuble(true), imu(IMU()) {
 }
 
 void ACS::setup(){
   //H-bridge standby pins
-  pinMode(STBYpin, OUTPUT);  
-  pinMode(STBZpin, OUTPUT);
+  pinMode(Constants::STBYPIN, OUTPUT);  
+  pinMode(Constants::STBZPIN, OUTPUT);
 
   //Pins for X-Torquer
-  pinMode(xPWMpin, OUTPUT);
-  pinMode(xout1, OUTPUT);
-  pinMode(xout2, OUTPUT);
+  pinMode(Constants::XPWMPIN, OUTPUT);
+  pinMode(Constants::XOUT1, OUTPUT);
+  pinMode(Constants::XOUT2, OUTPUT);
 
   //Pins for Y-Torquer
-  pinMode(yPWMpin, OUTPUT);
-  pinMode(yout1, OUTPUT);
-  pinMode(yout2, OUTPUT);
+  pinMode(Constants::YPWMPIN, OUTPUT);
+  pinMode(Constants::YOUT1, OUTPUT);
+  pinMode(Constants::YOUT2, OUTPUT);
 
   //Pins for Z-Torquer
-  pinMode(zout1, OUTPUT);
-  pinMode(zout2, OUTPUT);
-  pinMode(zPWMpin, OUTPUT);
+  pinMode(Constants::ZOUT1, OUTPUT);
+  pinMode(Constants::ZOUT2, OUTPUT);
+  pinMode(Constants::ZPWMPIN, OUTPUT);
 
   rtObj.initialize();
   imu.setup();
@@ -66,7 +66,7 @@ void ACS::setCurrent(){
 }
 
 void ACS::run(){
-  ACSwrite(current1, xout1, xout2, xPWMpin);
-  ACSwrite(current2, yout1, yout2, yPWMpin); //previously current1 for some odd reason
-  ACSwrite(current3, zout1, zout2, zPWMpin);
+  ACSwrite(current1, Constants::XOUT1, Constants::XOUT2, Constants::XPWMPIN);
+  ACSwrite(current2, Constants::YOUT1, Constants::YOUT2, Constants::YPWMPIN); 
+  ACSwrite(current3, Constants::ZOUT1, Constants::ZOUT2, Constants::ZPWMPIN);
 }

@@ -16,22 +16,11 @@ class ACS{
     void setup();
     void run();
     void setCurrent();
-    void ACSwrite(int torqorder,  float current,  int out1,  int out2, int PWMpin);
-    int getPinset(){
-        return pinset;
-    }
-    void setPinset(int val){
-        pinset = val;
-    }
-
+    void ACSwrite(float current,  int out1,  int out2, int PWMpin);
 
     private:
     StarshotACS0ModelClass rtObj;
-    int pinset;
-
-    //0 = dampening/detumble, 1 = PD controller/pointing
     boolean detuble;
-
     IMU imu;
     float current1;
     float current2;

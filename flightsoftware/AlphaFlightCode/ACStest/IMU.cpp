@@ -14,17 +14,17 @@ void IMU::setup(){
 
 float IMU::getGyroX(){
     updateVals();
-    return gyroX * MODEL_COMPENSATION;
+    return gyroX * Constants::MODEL_COMPENSATION;
 }
 
 float IMU::getGyroY(){
     updateVals();
-    return gyroY * MODEL_COMPENSATION;
+    return gyroY * Constants::MODEL_COMPENSATION;
 }
 
 float IMU::getGyroZ(){
     updateVals();
-    return gyroZ * MODEL_COMPENSATION;
+    return gyroZ * Constants::MODEL_COMPENSATION;
 }
 
 float IMU::getMagX(){
