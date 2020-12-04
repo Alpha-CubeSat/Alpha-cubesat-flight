@@ -2,7 +2,6 @@
 #include "Constants.h"
 
 IMU::IMU(): lsm(Adafruit_LSM9DS1()){
-
 }
 
 void IMU::setup(){
