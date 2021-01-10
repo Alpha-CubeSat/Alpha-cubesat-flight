@@ -26,7 +26,7 @@ void SDInit() {
     Serial.println("No camera found?");
     return;
   }
-  cam.setImageSize(VC0706_160x120); // executed twice, with a cam.reset in the middle, because, apparently, the camera is autistic
+  cam.setImageSize(VC0706_160x120); // executed twice, with a cam.reset in the middle
   cam.reset();
   cam.setImageSize(VC0706_160x120);
 
